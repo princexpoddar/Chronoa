@@ -1,0 +1,4 @@
+# Placeholder to preserve data/raw directory structure in git.
+# Raw Sentinel-2 GeoTIFF files (>100MB) are ignored from version control.
+# Run `python -m chronos.data.download_real_data` or `python chronos/data/download_real_data.py`
+# to fetch the raw satellite bands for Sutlej Basin / Punjab corridor.
