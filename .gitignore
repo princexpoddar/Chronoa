@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Testing & Cache
+.pytest_cache/
+.cache/
+.coverage
+htmlcov/
+
+# Node / Frontend dependencies & build artifacts
+node_modules/
+ui/frontend/node_modules/
+ui/frontend/dist/
+ui/frontend/dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Raw Geospatial / Satellite Data (>100MB files exceeding GitHub limits)
+# Download using: python -m chronos.data.download_real_data
+data/raw/*.tif
+*.tif
+*.tiff
+*.geotiff
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
