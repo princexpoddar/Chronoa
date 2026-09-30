@@ -75,6 +75,14 @@ class TileResult(BaseModel):
     stopping_time: Optional[int] = None
     coordinates: TileCoordinates
     bands_available: List[str]
+    t1_rgb: Optional[str] = None
+    t2_rgb: Optional[str] = None
+    t1_nir: Optional[str] = None
+    t2_nir: Optional[str] = None
+    t1_ndvi: Optional[str] = None
+    t2_ndvi: Optional[str] = None
+    diff_mask: Optional[str] = None
+    real_stats: Optional[Dict[str, Any]] = None
 
 class QueryResponse(BaseModel):
     tile_ids: List[str]
@@ -197,6 +205,27 @@ SUTLEJ_TILES = [
         bands_available=["B02_Blue", "B03_Green", "B04_Red", "B08_NIR"]
     ),
 ]
+
+# Enrich SUTLEJ_TILES with real extracted Sentinel-2 chips and metrics if available
+MANIFEST_PATH = ROOT_DIR / "ui" / "frontend" / "public" / "tiles" / "chips_manifest.json"
+if MANIFEST_PATH.exists():
+    try:
+        import json
+        with open(MANIFEST_PATH, "r") as f:
+            chips_data = {c["id"]: c for c in json.load(f)}
+            for tile in SUTLEJ_TILES:
+                if tile.tile_id in chips_data:
+                    c = chips_data[tile.tile_id]
+                    tile.t1_rgb = c.get("t1_rgb")
+                    tile.t2_rgb = c.get("t2_rgb")
+                    tile.t1_nir = c.get("t1_nir")
+                    tile.t2_nir = c.get("t2_nir")
+                    tile.t1_ndvi = c.get("t1_ndvi")
+                    tile.t2_ndvi = c.get("t2_ndvi")
+                    tile.diff_mask = c.get("diff_mask")
+                    tile.real_stats = c.get("real_stats")
+    except Exception as e:
+        print(f"Warning: Failed to load chips_manifest.json: {e}")
 
 # --- Endpoints ---
 
